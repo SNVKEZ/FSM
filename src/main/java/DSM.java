@@ -1,34 +1,131 @@
+import java.io.*;
+import java.util.Scanner;
 import java.util.ArrayList;
 
 public class DSM {
 
-    ArrayList<Character> inpSymbls = new ArrayList<>();
-    ArrayList<Character> fortunets = new ArrayList<>();
-    Character startFortun;
-    ArrayList<Character> endSost = new ArrayList<>();
-    Character[][] tableTransf;
-    char[] word;
-
-    DSM(ArrayList<Character> inpSymbls, ArrayList<Character> fortunets, Character startFortun,
-        ArrayList<Character> endSost, Character[][] tableTransf, char[] word){
-        this.inpSymbls=inpSymbls;
-        this.fortunets=fortunets;
-        this.endSost=endSost;
-        this.startFortun=startFortun;
-        this.tableTransf=tableTransf;
-        this.word=word;
+    DSM() {
     }
 
-    int col=0;
-    int line=0;
+    ArrayList<ArrayList<Character>> arrayList1 = new ArrayList<ArrayList<Character>>();
 
-
-    public void Determian() {
-        while(word[0]!=startFortun){
-            for(int i=0;i<word.length;i++)
-            {
-
+    public void InsertInfo(String way) {
+        FileInputStream file = null;
+        InputStreamReader inputStreamReader = null;
+        ArrayList<ArrayList<Character>> arrayList = new ArrayList<ArrayList<Character>>();
+        ArrayList<Character> arrayListIN = new ArrayList<Character>();
+        int b = 0;
+        try {
+            file = new FileInputStream(way);
+            inputStreamReader = new InputStreamReader(file, "UTF-8");
+            while ((b = inputStreamReader.read()) != (-1)) {
+                if (Character.isLetterOrDigit((char) b)) {
+                    arrayListIN.add((char) b);
+                }
+                if ((((char) b) == ',') || (char) b == '.') {
+                    ArrayList<Character> newArray = (ArrayList<Character>) arrayListIN.clone();
+                    arrayList.add(newArray);
+                    arrayListIN.clear();
+                }
+            }
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                inputStreamReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+        arrayList1 = (ArrayList<ArrayList<Character>>) arrayList.clone();
     }
+
+    public void te() {
+        System.out.println(arrayList1.get(0));
+    }
+
+    int columnCount = 0;
+    int lineCount = 0;
+
+    Character[][] arr;
+
+    public void InsertTable(String way) {
+        FileInputStream file = null;
+        InputStreamReader inputStreamReader = null;
+        int b = 0;
+        Character[][] arr1 = new Character[(arrayList1.get(0)).size()][(arrayList1.get(1)).size()];
+        try {
+            file = new FileInputStream("D:\\Study\\формальные ЯПэ\\FSM\\src\\main\\resources\\tableDSM.txt");
+            inputStreamReader = new InputStreamReader(file, "UTF-8");
+            while ((b = inputStreamReader.read()) != (-1)) {
+                if (Character.isLetterOrDigit(b)) {
+                    arr1[columnCount][lineCount] = (char) b;
+                    columnCount++;
+                }
+                if (((char) b == ',' || (char) b == '.')) {
+                    columnCount = 0;
+                    lineCount++;
+                }
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                inputStreamReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        arr = arr1.clone();
+    }
+
+    char[] word1;
+
+    public void InsertWord() {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Please enter the word:");
+        String word = in.nextLine();
+        word1 = word.toCharArray();
+    }
+
+    public void Determian() {
+        Character stF = ((arrayList1.get(2)).get(0));
+        Boolean flag = true;
+
+        for (int i = 0; i < word1.length; i++) {
+            lb:
+            {
+                int symb = (arrayList1.get(0)).indexOf(word1[i]);
+                int sost = (arrayList1.get(1)).indexOf(stF);
+                if (arr[symb][sost] == arrayList1.get(1).get(sost)) {
+                    flag = false;
+                    break;
+                } else {
+                    stF = arr[symb][sost];
+                }
+            }
+        }
+        if (flag && (arrayList1.get(3)).contains(stF)) {
+            System.out.println("It's a DSM");
+        } else {
+            System.out.println("Error, It's not a DSM");
+        }
+    }
+
+
 }
