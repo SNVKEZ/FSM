@@ -1,3 +1,7 @@
-public class NDSME{
+import java.io.*;
+import java.util.Scanner;
+import java.util.ArrayList;
 
+public class NDSME{
+    NDSME(){}
 }

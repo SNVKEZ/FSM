@@ -47,9 +47,7 @@ public class DSM {
         arrayList1 = (ArrayList<ArrayList<Character>>) arrayList.clone();
     }
 
-    public void te() {
-        System.out.println(arrayList1.get(0));
-    }
+
 
     int columnCount = 0;
     int lineCount = 0;
@@ -62,7 +60,7 @@ public class DSM {
         int b = 0;
         Character[][] arr1 = new Character[(arrayList1.get(0)).size()][(arrayList1.get(1)).size()];
         try {
-            file = new FileInputStream("D:\\Study\\формальные ЯПэ\\FSM\\src\\main\\resources\\tableDSM.txt");
+            file = new FileInputStream(way);
             inputStreamReader = new InputStreamReader(file, "UTF-8");
             while ((b = inputStreamReader.read()) != (-1)) {
                 if (Character.isLetterOrDigit(b)) {
@@ -101,10 +99,17 @@ public class DSM {
         System.out.println("Please enter the word:");
         String word = in.nextLine();
         word1 = word.toCharArray();
+        for(int i = 0;i<word1.length;i++){
+            if (!arrayList1.get(0).contains(word1[i])){
+                InsertWord();
+            }
+        }
     }
 
     public void Determian() {
+        ArrayList<Character> sostoyaniya = new ArrayList<>();
         Character stF = ((arrayList1.get(2)).get(0));
+        sostoyaniya.add(stF);
         Boolean flag = true;
 
         for (int i = 0; i < word1.length; i++) {
@@ -117,11 +122,18 @@ public class DSM {
                     break;
                 } else {
                     stF = arr[symb][sost];
+                    sostoyaniya.add(stF);
                 }
             }
         }
         if (flag && (arrayList1.get(3)).contains(stF)) {
             System.out.println("It's a DSM");
+            for(int i=0;i<sostoyaniya.size();i++){
+                if(i==0){
+                    System.out.print(sostoyaniya.get(i)) ;
+                }else{
+                System.out.print(" -> "+sostoyaniya.get(i));
+            }}
         } else {
             System.out.println("Error, It's not a DSM");
         }
