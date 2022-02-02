@@ -106,7 +106,7 @@ public class DSM {
         }
     }
 
-    public void Determian() {
+    public Boolean Determian() {
         ArrayList<Character> sostoyaniya = new ArrayList<>();
         Character stF = ((arrayList1.get(2)).get(0));
         sostoyaniya.add(stF);
@@ -127,15 +127,16 @@ public class DSM {
             }
         }
         if (flag && (arrayList1.get(3)).contains(stF)) {
-            System.out.println("It's a DSM");
+
             for(int i=0;i<sostoyaniya.size();i++){
                 if(i==0){
                     System.out.print(sostoyaniya.get(i)) ;
                 }else{
                 System.out.print(" -> "+sostoyaniya.get(i));
             }}
+            return true;
         } else {
-            System.out.println("Error, It's not a DSM");
+            return false;
         }
     }
 

@@ -15,16 +15,26 @@ public class main {
         ndsm.InsertInfo("D:\\Study\\формальные ЯПэ\\FSM\\src\\main\\resources\\input.txt");
         ndsm.InsertTable("D:\\Study\\формальные ЯПэ\\FSM\\src\\main\\resources\\tableNDSM.txt");
         ndsm.InsertWord();
-        ndsm.NotDetermian();
+        if(ndsm.NotDetermian()){
+            System.out.println("Succ");
+        }else{
+            System.out.println("NS");
+        }
     }
 
     public static void ndsme(){
         NDSME ndsme = new NDSME(); // создаем недерм автомат с эпс переход
+        ndsme.InsertInfo("D:\\Study\\формальные ЯПэ\\FSM\\src\\main\\resources\\input.txt");
+        ndsme.InsertTable("D:\\Study\\формальные ЯПэ\\FSM\\src\\main\\resources\\tableNDSM.txt");
+        ndsme.InsertTableEps("D:\\Study\\формальные ЯПэ\\FSM\\src\\main\\resources\\tableNDSME.txt");
+        ndsme.InsertWord();
+        ndsme.NotDetermian();
+        System.out.println(ndsme.NotDetermian());
     }
 
     public static void main(String[] args){
         //dsm();
-        ndsm();
-        //ndsme();
+        //ndsm();
+        ndsme();
     }
 }

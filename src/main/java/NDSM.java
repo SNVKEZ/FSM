@@ -96,11 +96,7 @@ public class NDSM {
             }
         }
         arr = arr1.clone();
-        for(int i=0;i<(arrayList1.get(1)).size();i++)
-            for(int j=0;j<(arrayList1.get(0)).size();j++)
-            {
-                System.out.println(arr[j][i]);
-            }
+
     }
 
     char[] word1;
@@ -153,7 +149,7 @@ public class NDSM {
 
     }
 
-    public void NotDetermian() {
+    public Boolean NotDetermian() {
         Character stF = ((arrayList1.get(2)).get(0));
 
 
@@ -165,9 +161,9 @@ public class NDSM {
 
         findNeDerm(0,symb,sost);
         if(flag){
-            System.out.println("It's a NDSM");
+            return true;
         }else{
-            System.out.println("Error, It's not a NDSM");
+            return false;
         }
     }
 }
